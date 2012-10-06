@@ -1,6 +1,19 @@
+/*** GLOBAL VARIABLES ***/
+/**/
+
+/* Utility arrays just to make handling date in a human friendly format easy */
+
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 var months_days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+/* store information like events in here */
+var date_metadata = {};
+
+
+
+/*** FUNCTIONS ***/
+/**/
 
 /* Generates the boxes for each day of the week at the top
 	of the calendar. 
@@ -34,26 +47,32 @@ function generate_boxes (){
 	//so we can find out what day the first of the month falls on
 	d_firstday.setDate(1); 	
 	
-	//just test values for debugging
-	/*
-	var test_d1 = 3;
-	var test_d2 = 4;
-	*/
-	
+	var pre_year = d.getFullYear(); /*set these to current year for now, we'll change them if need be*/
+	var cur_year = d.getFullYear();
+	var post_year = d.getFullYear();
+		
 	if (d_month-1 < 0){ /* check if the previous month was in the previous year */
 		var days_in_previous_month = months_days[11];
 		var pre_month = months[11];
+		var pre_month_num = 12;
+		pre_year = d.getFullYear() - 1;
 	}
 	else {
 		var days_in_previous_month = months_days[d_month-1];
 		var pre_month = months[d_month-1];
+		var pre_month_num = d_month; /*since we're storing days in "2-1-1992" format instead of 
+										the 0-11 format d_month uses, we would just be 
+										doing "d_month - 1 + 1" anyway.*/
 	}
 	
 	if (d_month + 1 > 11){ /* check if the next month is in the next year */
 		var post_month = months[0];
+		post_year = d.getFullYear() + 1;
+		var post_month_num = 1;
 	}
 	else {
 		var post_month = months[d_month+1];
+		var post_month_num = d_month + 2; //add two to d_month so we get next month in 1-12 instead of 0-12
 	}
 	
 	/*flags for the month labels on the side, just for if they should be visible or not*/
@@ -81,6 +100,7 @@ function generate_boxes (){
 	for (var i = days_in_previous_month  - d_firstday.getDay() + 1; i < days_in_previous_month + 1; i++){
 		var i_day = $("<li>");
 		
+		i_day.attr("id", pre_year + "-" + pre_month_num + "-" + i);
 		i_day.attr("class", "day-box box-monthpre");
 		i_day.attr("onclick", "toggle_active(this)");
 		i_day.append("<p class=\"date-label\">"+ i +"</p>");
@@ -93,7 +113,8 @@ function generate_boxes (){
 	for (var i=1; i <= months_days[d_month]; i++){
 		var i_day = $("<li>");
 		
-		i_day.attr("class", "day-box");
+		i_day.attr("id", cur_year + "-" + (d_month+1) + "-" + i);
+		i_day.attr("class", (d.getDate() == i) ?  "day-box today" : "day-box");
 		i_day.attr("onclick", "toggle_active(this)");
 		i_day.append("<p class=\"date-label\">"+i+"</p>");
 		$(i_day).appendTo("#main-calendar ul:nth-child(2)");
@@ -108,42 +129,31 @@ function generate_boxes (){
 	for (var i=1; i <= 35 - (months_days[d_month] + d_firstday.getDay());i++){
 		var i_day = $("<li>");
 		
+		i_day.attr("id", post_year + "-" + (post_month_num) + "-" + i);
 		i_day.attr("class", "day-box box-monthpost");
 		i_day.attr("onclick", "toggle_active(this)");
 		i_day.append("<p class=\"date-label\">"+i+"</p>");
 		$(i_day).appendTo("#main-calendar ul:nth-child(2)");
 	}
 	
-
+	$(".calendar-labels").append($("<li>").attr("class", "month-label spacer hidden-phone"));
 	
 	if (show_pre == 1){
 		/* adds the previous month label for the labels on the side of the calendar */
-		$(".calendar-labels > .pre > span").text(pre_month);
+		$(".calendar-labels").append($("<li>").attr("class", "month-label pre hidden-phone").text(pre_month));
 	}
+	/* adds the current month label for the labels on the side of the calendar */		
+	$(".calendar-labels").append($("<li>").attr("class", "month-label current hidden-phone").text(months[d_month]));
 	
-
-	/* adds the current month label for the labels on the side of the calendar */	
-	$(".calendar-labels > .current > span").text(months[d_month]);
+	for (var i = 0; i < 2 + (1 - show_pre); i++){ /*empty boxes for spacing*/
+		$(".calendar-labels").append($("<li>").attr("class", "month-label hidden-phone"));
+	}
 	
 	if (show_post == 1){
 		/* adds the next month label for the labels on the side of the calendar */
-		$(".calendar-labels > .post > span").text(post_month);
-
+		$(".calendar-labels").append($("<li>").attr("class", "month-label post hidden-phone").text(post_month));
 	}
-	
-	/* we set the spacing of the labels on the side using 'em', the ul (their parent) font-size
-		is set to the height of the calendar boxes in each responsive tier, this way we just
-		set the font-size in the responsive.css to be what the height of the boxes are and it applies
-		for all sizes, easy! */
-	$(".calendar-labels > .pre").css("height",(show_pre)+ "em");
-	/* 	I use (1-show_pre) to account for whether this month label should be big enough
-			to account for not having the previous month label.
-		The 3.25 part is to simulate three rows of day boxes on the calendar plus a bit for the padding
-			and borders and such, not elegant but it's simple. */
-	$(".calendar-labels > .current").css("height",((1 - show_pre) + 3.25) + "em");
-		
-	
-	
+
 }
 
 /* The routine to make a box activated.*/

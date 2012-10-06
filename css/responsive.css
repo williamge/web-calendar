@@ -51,10 +51,12 @@
 	
 	.calendar-labels li {
 		width:  75px;
+		height: 56px;
+		font: bold 0.7rem Helvetica, Sans-serif;
 	}
 	
-	.calendar-labels li > span {
-		font: bold 0.7rem Helvetica, Sans-serif;
+	.calendar-labels .spacer {
+		height: 35px;
 	}
 	
 	.dotw-box, .day-box {
@@ -64,7 +66,7 @@
 	
 	.dotw-box {
 		font-size: 0.7rem;
-		height:  auto;
+		height:  35px;
 	}
 }
 
@@ -83,10 +85,12 @@
 	
 	.calendar-labels li {
 		width:  135px;
+		height: 95px;
+		font: bold 1.4rem Helvetica, Sans-serif;
 	}
 	
-	.calendar-labels span {
-		font: bold 1.4rem Helvetica, Sans-serif;
+	.calendar-labels .spacer {
+		height: 43px;
 	}
 	
 	.dotw-box, .day-box {
@@ -96,6 +100,6 @@
 	
 	.dotw-box {
 		font-size: 0.85rem;
-		height: auto;
+		height: 43px;
 	}
 }

@@ -24,24 +24,28 @@
 	}
 	
 		.calendar-labels li {
-			display: inline-block;
+			/*display: inline-block;
 			width:  135px;
 			margin:  5px;
 			
 			padding-right: 5px;
 			text-align: right;
 			opacity: 0.21;
-			font-size: inherit;
-		}
-		
-		.calendar-labels li > span {
+			font-size: inherit;*/
+			
+			display: block;
+			width:  135px;
+			height: 125px;
+			margin:  10px 5px;
+			
+			padding-right: 5px;
+			text-align: right;
+			opacity: 0.21;
 			font: bold 1.7rem Helvetica, Sans-serif;
-			line-height: 1.7rem;
 		}
 		
 	.calendar-labels .spacer {
-		display: none;
-		height: 25px;
+		height: 50px;
 		line-height: 0;
 		padding: 0px; 
 		margin: 5px; 
@@ -54,13 +58,13 @@
 	}
 	
 	.calendar-labels .post {
-		height:  125px;
 	}
 
 .dotw-box {
 	border:  1px dotted gray;
 	display: inline-block;
 	width: 125px;
+	height: 50px;
 	margin:  5px;
 	background-color: lightGray;
 	text-align: center;
@@ -77,24 +81,28 @@
 	margin:  5px;
 	background-color: rgba(0,0,255,0.05);
 }
-
-.day-box.month{
-	font-size: 25px;
-	font-weight: bold;
-
-	background-color: lightGray;
-	text-align: center;
-	opacity: 0.33;
 	
-	width: 100%;
-	height: auto;
+	.day-box.month{
+		font-size: 25px;
+		font-weight: bold;
 	
-	display: none;
-}
-
-.day-box.active {
-	border-style:  solid;
-}
+		background-color: lightGray;
+		text-align: center;
+		opacity: 0.33;
+		
+		width: 100%;
+		height: auto;
+		
+		display: none;
+	}
+	
+	.day-box.active {
+		border-style:  solid;
+	}
+	
+	.day-box.today {
+		background-color: rgba(0,0,255,0.2);
+	}
 
 .box-monthpre {
 	border-color: rgb(255,0,0);
@@ -111,3 +119,47 @@
 	margin: 0.5em;
 	/*border: 1px solid black;*/
 }
+
+/* modal for editing dates */
+.modal { 
+	/* All of this stuff is just to vertically center things */
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	display: table;
+	display: none;
+}
+
+	/* The sole purpose of this is to create a transparent 
+	background without interfering with the other elements that are
+	children of .modal */
+	.transparent-dummy {
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		background-color: black;
+		opacity: 0.2;
+	}
+	
+	/* This just exists to vertically center the actual 
+	content below*/
+	.center-container {
+		display: table-cell;
+		width: 100%;
+		text-align: center;
+		vertical-align: middle;
+	}
+
+	.edit-box {
+		background-color: gray;
+		border: 5px solid black;
+		border-radius: 5px;
+		opacity: 0.95;
+		
+		height: 25%;
+		width: 25%;
+		display: inline-block;
+		
+		text-align: left;
+	}
