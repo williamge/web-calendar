@@ -1,3 +1,11 @@
+body {
+	font-family: Helvetica, Sans-serif;
+}
+
+.visible-phone {
+	display: none !important;
+}
+
 .calendar-box {
 	max-width:960px;
 	margin-left:  auto;
@@ -41,7 +49,8 @@
 			padding-right: 5px;
 			text-align: right;
 			opacity: 0.21;
-			font: bold 1.7rem Helvetica, Sans-serif;
+			font-weight: bold;
+			font-size: 1.7rem;
 		}
 		
 	.calendar-labels .spacer {
@@ -59,26 +68,29 @@
 	
 	.calendar-labels .post {
 	}
+	
+	.day-box, .dotw-box {
+		/*display: inline-block;*/
+		display: block;
+		float: left;
+		width: 125px;
+		margin:  5px;
+	}
 
 .dotw-box {
 	border:  1px dotted gray;
-	display: inline-block;
-	width: 125px;
 	height: 50px;
-	margin:  5px;
 	background-color: lightGray;
 	text-align: center;
 	opacity: 0.33;
-	font-size:  1rem;
+	font-size:  1em;
 }
 
 
 .day-box {
 	border:  1px dotted rgb(0,0,255);
-	display: inline-block;
-	width: 125px;
+	border-radius: 2px;
 	height: 125px;
-	margin:  5px;
 	background-color: rgba(0,0,255,0.05);
 }
 	
@@ -103,7 +115,21 @@
 	.day-box.today {
 		background-color: rgba(0,0,255,0.2);
 	}
-
+	
+	.day-box .item-num {
+		border: 1px solid black;
+		opacity: 0.21;
+		float: left;
+	}
+	
+	.day-box .edit-button {
+		border: 1px solid black;
+		padding: 0.10em 0.5em;
+		opacity: 0.21;
+		float: right;
+		cursor: pointer;
+	}
+		
 .box-monthpre {
 	border-color: rgb(255,0,0);
 	background: rgba(255,0,0,0.05);
@@ -116,7 +142,9 @@
 
 .date-label {
 	font-size: 25px;
-	margin: 0.5em;
+	margin: 0 0.5em;
+	text-align: center;
+	font-family: Futura, Helvetica, sans-serif;
 	/*border: 1px solid black;*/
 }
 

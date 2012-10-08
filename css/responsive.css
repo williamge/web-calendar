@@ -1,4 +1,5 @@
-@media (max-width: 555px) {
+@media screen and (max-device-width: 555px),
+		 screen and (max-width: 555px)  {
 	
 	.hidden-phone {
 		display: none !important;
@@ -24,15 +25,20 @@
 	}
 	
 	.visible-phone {
-		display: block;
+		display: block !important;
 	}
 	
 	.day-box.month{
 		display: inline-block;
 	}
+	
+	.date-label {
+		font-size: 0.9em;
+	}
 }
 
-@media (min-width: 555px) and (max-width: 960px) {
+@media screen and (min-width: 555px) and (max-width: 960px),
+		screen and (min-device-width: 555px) and (max-device-width: 960px) {
 
 	.hidden-tablet {
 		display: none !important;
@@ -52,7 +58,8 @@
 	.calendar-labels li {
 		width:  75px;
 		height: 56px;
-		font: bold 0.7rem Helvetica, Sans-serif;
+		font-weight: bold;
+		font-size: 0.7rem;
 	}
 	
 	.calendar-labels .spacer {
@@ -65,12 +72,12 @@
 	}
 	
 	.dotw-box {
-		font-size: 0.7rem;
+		font-size: 0.7em;
 		height:  35px;
 	}
 }
 
-@media (min-width: 960px) and (max-width: 1150px) {
+@media screen and (min-width: 960px) and (max-width: 1150px) {
 
 	.calendar-box {
 		max-width:767px;
@@ -86,7 +93,8 @@
 	.calendar-labels li {
 		width:  135px;
 		height: 95px;
-		font: bold 1.4rem Helvetica, Sans-serif;
+		font-weight: bold;
+		font-size: 1.4rem;
 	}
 	
 	.calendar-labels .spacer {
@@ -99,7 +107,7 @@
 	}
 	
 	.dotw-box {
-		font-size: 0.85rem;
+		font-size: 0.85em;
 		height: 43px;
 	}
 }
