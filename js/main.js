@@ -7,10 +7,6 @@ var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'A
 
 var months_days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-/* store information like events in here */
-var date_metadata = {};
-
-
 
 /*** FUNCTIONS ***/
 /**/
@@ -169,11 +165,24 @@ function make_day_box(day, month, year, today_flag, month_class) {
 	
 	// TODO: check if this date has events, if so fill this in
 	var date_items = 0; // <-- this should actually check for the proper value
-	bottom_row.append("<span class=\"item-num\">"+ (date_items > 0) ? "" : date_items +"</span>");
 	
-	var edit_button = $("<span href=\"\" class=\"edit-button\">e</span>");
-	edit_button.attr("onclick", "edit_date(this)");
+	
+	var item_num_span = $("<span>").attr("class", "item-num");
+	if (date_items > 0)
+	{
+		item_num_span.text = date_items;
+	}
+	bottom_row.append(item_num_span);
+	$(item_num_span).click(
+		function() {
+			alert("I should fill this in");
+		});
+	
+	var edit_button = $("<span href=\"\" class=\"event-button\">+</span>");
+	//edit_button.attr("onclick", "edit_date(this)");
+	$(edit_button).click( function() { edit_date(year + "-" + month + "-" + day) });
 	bottom_row.append(edit_button);
+	
 	bottom_row.append("<div style=\"clear:both\"></div>");
 	
 	i_day.append(bottom_row);
@@ -181,9 +190,24 @@ function make_day_box(day, month, year, today_flag, month_class) {
 	return i_day;
 }
 
+function save_event()
+{
+	var date_id = $("#editing-date").val();
+	dateio_save_event( date_id, $("#event-desc").val());
+	
+	var date_items = dateio_get_item_num(date_id);
+	
+	$("#" + date_id + " .item-num").text(date_items);
+	
+	$("#editing-date").val("");
+	$("#event-desc").val("");
+	$("#day-edit").toggleClass("active");
+}
+
 function edit_date(day)
 {
-	alert("you edited it, or not!");
+	$("#editing-date").val(day);
+	$("#day-edit").toggleClass("active");
 }
 
 /* The routine to make a box activated.*/
@@ -206,4 +230,9 @@ function toggle_active(item)
 $(document).ready(function() {
 	generate_dotw_boxes();
 	generate_boxes();
+	
+	$("#day-edit .transparent-dummy").click( 
+		function() {
+			$("#day-edit").toggleClass("active");
+		});
 });

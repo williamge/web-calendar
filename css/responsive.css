@@ -1,5 +1,4 @@
-@media screen and (max-device-width: 555px),
-		 screen and (max-width: 555px)  {
+@media screen and (max-width: 555px) {
 	
 	.hidden-phone {
 		display: none !important;
@@ -37,8 +36,7 @@
 	}
 }
 
-@media screen and (min-width: 555px) and (max-width: 960px),
-		screen and (min-device-width: 555px) and (max-device-width: 960px) {
+@media screen and (min-width: 555px) and (max-width: 960px) {
 
 	.hidden-tablet {
 		display: none !important;
